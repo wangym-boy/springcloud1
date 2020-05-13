@@ -1,13 +1,13 @@
 server:
-  port: 9527
+  port: 7001
 eureka:
   instance:
-    hostname: cloud-gateway-service
+    hostname: eureka7001
   client:
 #    false表示不向注册中心注册自己
-    register-with-eureka: true
+    register-with-eureka: false
 #    false表示自己端口为注册中心，并不需要检索服务
-    fetch-registry: true
+    fetch-registry: false
     service-url:
 #      设置与Eureka Server交互的地址查询服务和注册服务器都需要依赖这个地址
 #      defaultZone: http://eureka7002:7002/eureka/
@@ -17,12 +17,4 @@ eureka:
 #    eviction-interval-timer-in-ms: 2000
 spring:
   application:
-    name: cloud-gateway
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/wangym-boy/springcloud1.git
-          search-paths:
-            - springcloud1
-      label: master
+    name: eureka7001
