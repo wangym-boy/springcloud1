@@ -1,8 +1,8 @@
 server:
-  port: 9527
+  port: 9999
 eureka:
   instance:
-    hostname: cloud-gateway-service
+    hostname: cloud-config-service
   client:
 #    false表示不向注册中心注册自己
     register-with-eureka: true
@@ -17,12 +17,25 @@ eureka:
 #    eviction-interval-timer-in-ms: 2000
 spring:
   application:
-    name: cloud-gateway
+    name: cloud-config-center
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/wangym-boy/springcloud1.git
+          uri: https://github.com/wangym-boy/spring-cloud-condig.git
           search-paths:
-            - springcloud1
+            - spring-cloud-condig
+          skip-ssl-validation: true
       label: master
+#rabbitmq相关配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+#rabbitmq相关配置，暴露bus刷新配置的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh'

@@ -24,6 +24,11 @@
         <module>constomer-hystrix-dashboard9001</module>
         <module>cloud-gateway9527</module>
         <module>cloud-config-server9999</module>
+        <module>cloud-config-client8888</module>
+        <module>cloud-config-client8899</module>
+        <module>cloud-provider-rabbitmq-payment8001</module>
+      <module>constomer-rabbitmq-order80</module>
+        <module>cloud-provider-rabbitmq-payment8002</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,0 +1,51 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: cloud-stream-provider
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/cloud?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+      username: root
+      password: zlj1012
+  cloud:
+    stream:
+      binders: #在此处配置需要绑定的rabbitmq的服务信息
+        defaultRabbit: #表示定义的名称，用于binding集合
+          type: rabbit #消息组件类型
+          environment: #设置rabbitmq相关的环境配置
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+
+      bindings: #服务的整合处理
+        output: #这个名字是一个通道的名称
+          destination: studyExchange #表示要使用的Exchange名称定义
+          content-type: application/json #设置消息类型，本次为json，文本设置用"text/plain"
+          binder: defaultRabbit #设置要绑定的消息服务的具体设置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.wym.pojo
+
+eureka:
+  instance:
+    instance-id: send8001.com
+    prefer-ip-address: true
+#    设置心跳的时间间隔（默认30秒）
+    lease-renewal-interval-in-seconds: 2
+    #如果现在超过了5秒间隔（默认90秒）
+    lease-expiration-duration-in-seconds: 5
+    #访问地址为ip地址
+  client:
+#      表示是否将自己注册进EurekaServer
+    register-with-eureka: true
+    #      是否从EurekaServer抓取自己的注册信息，单点无所谓，集群必须设置为true配合ribbon使用负载均衡
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001:7001/eureka/,http://eureka7002:7002/eureka/
+
